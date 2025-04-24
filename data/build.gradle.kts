@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.material)
     implementation(project(":domain"))
     implementation(libs.google.gson)
+    implementation (libs.retrofit)
     implementation(libs.hilt.android)
     kapt("com.google.dagger:hilt-android-compiler:2.56.1")
     implementation(libs.androidx.lifecycle.viewmodel.compose.v261)
