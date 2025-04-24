@@ -1,4 +1,7 @@
 package com.example.data.api
 
-class ApiManger {
+class ApiManger private constructor(){
+    companion object{
+
+    }
 }
