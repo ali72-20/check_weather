@@ -6,14 +6,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import android.os.Handler
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.res.painterResource
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -24,31 +24,36 @@ class SplashActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CheckWeatherTheme {
-           Handler(mainLooper).postDelayed({
-                    val intent = Intent(this,MainActivity::class.java)
-                    startActivity(intent);
-                    finish()
-                },2500)
-                setContent(
-                    content = {
-                        SplashActivityContent()
-                    }
-                )
+                StartSplash()
+                SplashActivityContent()
             }
         }
+    }
+
+    @Composable
+    private fun StartSplash() {
+        Handler(mainLooper).postDelayed({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent);
+            finish()
+        }, 2500)
     }
 }
 
 
 @Composable
-fun SplashActivityContent(){
-    Scaffold (modifier =Modifier.fillMaxSize()){
-        Text(text = "splash", modifier = Modifier.padding(it))
-    }
+fun SplashActivityContent() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(
+                painterResource(R.drawable.splash_icon),
+            )
+    )
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewSplashActivityContent(){
+fun PreviewSplashActivityContent() {
     SplashActivityContent()
 }
