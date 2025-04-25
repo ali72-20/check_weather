@@ -10,6 +10,6 @@ interface WeatherServices {
         @Query(ApiConstants.CITY_KEY) city: String,
         @Query(ApiConstants.COUNTRY_KEY) country: String,
         @Query(ApiConstants.DAYS_KEY) days: Int,
-        @Query(ApiConstants.API_KEY) apiKey: String
+        @Query(ApiConstants.KEY) apiKey: String
     ): WeatherDataResponse
 }
