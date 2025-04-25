@@ -1,4 +1,4 @@
-package com.example.data.api.api_result
+package com.example.domain.core.api_result
 
 sealed class ApiResult<T> {}
 data class Success<T>(val data: T) : ApiResult<T>()

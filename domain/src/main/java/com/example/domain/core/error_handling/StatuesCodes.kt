@@ -1,4 +1,4 @@
-package com.example.data.api.error_handling
+package com.example.domain.core.error_handling
 
 class StatuesCodes  private constructor(){
     companion object{

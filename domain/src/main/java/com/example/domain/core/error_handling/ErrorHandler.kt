@@ -1,4 +1,4 @@
-package com.example.data.api.error_handling
+package com.example.domain.core.error_handling
 
 import retrofit2.HttpException
 import java.io.IOException

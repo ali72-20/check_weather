@@ -1,5 +1,6 @@
 package com.example.data.api.models
 
+import com.example.domain.entities.WeatherEntity
 import com.google.gson.annotations.SerializedName
 
 data class WeatherDataResponse(
@@ -24,7 +25,14 @@ data class WeatherDataResponse(
 
 	@field:SerializedName("lat")
 	val lat: String? = null
-)
+){
+	fun toDomain():WeatherEntity{
+		return WeatherEntity(
+			cityName = cityName!!
+
+		)
+	}
+}
 
 data class Weather(
 

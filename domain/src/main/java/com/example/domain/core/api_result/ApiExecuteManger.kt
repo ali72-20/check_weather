@@ -1,4 +1,4 @@
-package com.example.data.api.api_result
+package com.example.domain.core.api_result
 
 suspend fun <T> executeApi(apiCall: suspend () -> T): ApiResult<T> {
     try {

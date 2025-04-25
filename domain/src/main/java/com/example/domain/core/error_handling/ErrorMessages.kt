@@ -1,4 +1,4 @@
-package com.example.data.api.error_handling
+package com.example.domain.core.error_handling
 
 class ErrorMessages private constructor(){
    companion object{
