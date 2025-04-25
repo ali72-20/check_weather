@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Check weather</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="paris">Paris</string>
+    <string name="location_icon">Location Icon</string>
 </resources>
