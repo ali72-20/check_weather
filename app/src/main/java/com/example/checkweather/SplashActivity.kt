@@ -49,6 +49,6 @@ fun SplashActivityContent(){
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun previewSplashActivityContent(){
+fun PreviewSplashActivityContent(){
     SplashActivityContent()
 }
