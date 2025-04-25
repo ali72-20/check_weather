@@ -2,7 +2,7 @@ package com.example.data.repository
 import com.example.data.api.models.WeatherRequestModel
 import com.example.data.data_source.remote_data_source.RemoteDataSource
 import com.example.domain.core.api_result.ApiResult
-import com.example.domain.core.api_result.executeApi
+import com.example.data.api.core.executeApi
 import com.example.domain.entities.WeatherEntity
 import com.example.domain.repository.WeatherRepository
 import javax.inject.Inject
