@@ -188,8 +188,7 @@ fun ForecastDaysView() {
             .fillMaxSize()
             .background(Color.Gray)
     ) {
-        LazyRow {
-
+        LazyRow(){
         }
     }
 }
