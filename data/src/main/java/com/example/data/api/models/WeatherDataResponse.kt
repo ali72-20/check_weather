@@ -30,9 +30,9 @@ data class WeatherDataResponse(
 ) {
     fun toDomain(): WeatherDataEntity {
         return WeatherDataEntity(
-            cityName = cityName!!,
-            timeZone = timezone!!,
-            data = data!!.map { it!!.toDomain() }
+            cityName = cityName.orEmpty(),
+            timeZone = timezone.orEmpty(),
+            data = data?.mapNotNull { it?.toDomain() } ?: emptyList()
         )
     }
 }
@@ -40,7 +40,7 @@ data class WeatherDataResponse(
 data class Weather(
 
     @field:SerializedName("code")
-    val code: Int? = null,
+    val code: Double? = null,
 
     @field:SerializedName("icon")
     val icon: String? = null,
@@ -60,31 +60,31 @@ data class Weather(
 data class DataItem(
 
     @field:SerializedName("pres")
-    val pres: Int? = null,
+    val pres: Double? = null,
 
     @field:SerializedName("moon_phase")
-    val moonPhase: Any? = null,
+    val moonPhase: Double? = null,
 
     @field:SerializedName("wind_cdir")
     val windCdir: String? = null,
 
     @field:SerializedName("moonrise_ts")
-    val moonriseTs: Int? = null,
+    val moonriseTs: Double? = null,
 
     @field:SerializedName("clouds")
-    val clouds: Int? = null,
+    val clouds: Double? = null,
 
     @field:SerializedName("low_temp")
-    val lowTemp: Any? = null,
+    val lowTemp: Double? = null,
 
     @field:SerializedName("wind_spd")
-    val windSpd: Any? = null,
+    val windSpd: Double? = null,
 
     @field:SerializedName("ozone")
-    val ozone: Int? = null,
+    val ozone: Double? = null,
 
     @field:SerializedName("pop")
-    val pop: Int? = null,
+    val pop: Double? = null,
 
     @field:SerializedName("datetime")
     val datetime: String? = null,
@@ -93,85 +93,85 @@ data class DataItem(
     val validDate: String? = null,
 
     @field:SerializedName("precip")
-    val precip: Int? = null,
+    val precip: Double? = null,
 
     @field:SerializedName("min_temp")
-    val minTemp: Any? = null,
+    val mDoubleemp: Double? = null,
 
     @field:SerializedName("sunrise_ts")
-    val sunriseTs: Int? = null,
+    val sunriseTs: Double? = null,
 
     @field:SerializedName("weather")
     val weather: Weather? = null,
 
     @field:SerializedName("app_max_temp")
-    val appMaxTemp: Int? = null,
+    val appMaxTemp: Double? = null,
 
     @field:SerializedName("max_temp")
-    val maxTemp: Any? = null,
+    val maxTemp: Double? = null,
 
     @field:SerializedName("snow_depth")
-    val snowDepth: Int? = null,
+    val snowDepth: Double? = null,
 
     @field:SerializedName("max_dhi")
     val maxDhi: Any? = null,
 
     @field:SerializedName("sunset_ts")
-    val sunsetTs: Int? = null,
+    val sunsetTs: Double? = null,
 
     @field:SerializedName("clouds_mid")
-    val cloudsMid: Int? = null,
+    val cloudsMid: Double? = null,
 
     @field:SerializedName("uv")
-    val uv: Int? = null,
+    val uv: Double? = null,
 
     @field:SerializedName("vis")
-    val vis: Int? = null,
+    val vis: Double? = null,
 
     @field:SerializedName("high_temp")
-    val highTemp: Any? = null,
+    val highTemp: Double? = null,
 
     @field:SerializedName("temp")
-    val temp: Any? = null,
+    val temp: Double? = null,
 
     @field:SerializedName("clouds_hi")
-    val cloudsHi: Int? = null,
+    val cloudsHi: Double? = null,
 
     @field:SerializedName("app_min_temp")
-    val appMinTemp: Any? = null,
+    val appMDoubleemp: Double? = null,
 
     @field:SerializedName("moon_phase_lunation")
-    val moonPhaseLunation: Any? = null,
+    val moonPhaseLunation: Double? = null,
 
     @field:SerializedName("dewpt")
-    val dewpt: Any? = null,
+    val dewpt: Double? = null,
 
     @field:SerializedName("wind_dir")
-    val windDir: Int? = null,
+    val windDir: Double? = null,
 
     @field:SerializedName("wind_gust_spd")
-    val windGustSpd: Any? = null,
+    val windGustSpd: Double? = null,
 
     @field:SerializedName("clouds_low")
-    val cloudsLow: Int? = null,
+    val cloudsLow: Double? = null,
 
     @field:SerializedName("rh")
-    val rh: Int? = null,
+    val rh: Double? = null,
 
     @field:SerializedName("slp")
-    val slp: Int? = null,
+    val slp: Double? = null,
 
     @field:SerializedName("snow")
-    val snow: Int? = null,
+    val snow: Double? = null,
 
     @field:SerializedName("wind_cdir_full")
     val windCdirFull: String? = null,
 
     @field:SerializedName("moonset_ts")
-    val moonsetTs: Int? = null,
+    val moonsetTs: Double? = null,
 
     @field:SerializedName("ts")
-    val ts: Int? = null
+    val ts: Double? = null
 ) {
     fun toDomain(): DataItemEntity {
         return DataItemEntity(
@@ -181,7 +181,7 @@ data class DataItem(
             windSpd = windSpd,
             ozone = ozone,
             validDate = validDate,
-            minTemp = minTemp,
+            mDoubleemp = mDoubleemp,
             sunriseTs = sunriseTs,
             weather = weather?.toDomain(),
             appMaxTemp = appMaxTemp,

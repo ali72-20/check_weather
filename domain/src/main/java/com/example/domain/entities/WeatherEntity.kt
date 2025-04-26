@@ -9,25 +9,25 @@ data class WeatherDataEntity(
 
 data class DataItemEntity(
     val windCdir: String? = null,
-    val clouds: Int? = null,
+    val clouds: Double? = null,
     val lowTemp: Any? = null,
 
     val windSpd: Any? = null,
-    val ozone: Int? = null,
+    val ozone: Double? = null,
 
     val validDate: String? = null,
 
-    val minTemp: Any? = null,
+    val mDoubleemp: Any? = null,
 
-    val sunriseTs: Int? = null,
+    val sunriseTs: Double? = null,
 
     val weather: WeatherEntity? = null,
 
-    val appMaxTemp: Int? = null,
+    val appMaxTemp: Double? = null,
 
     val maxTemp: Any? = null,
 
-    val snowDepth: Int? = null,
+    val snowDepth: Double? = null,
 
     val maxDhi: Any? = null,
 
@@ -38,7 +38,7 @@ data class DataItemEntity(
 )
 
 data class WeatherEntity(
-    val code: Int? = null,
+    val code: Double? = null,
 
     val icon: String? = null,
 

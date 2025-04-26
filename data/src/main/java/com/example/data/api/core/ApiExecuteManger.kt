@@ -6,12 +6,10 @@ import com.example.domain.core.api_result.Failure
 import com.example.domain.core.api_result.Success
 
 suspend fun <T> executeApi(apiCall: suspend () -> T): ApiResult<T> {
-    try {
+    return try {
         val result = apiCall()
-        return Success(data = result)
-    } catch (e: Exception) {
-        return Failure(exceptionMessage = ErrorHandler.fromException(e).errorMessages)
-    } catch (t: Throwable) {
-        return Failure(exceptionMessage = "Unknown error occurred")
+        Success(data = result)
+    } catch (throwable: Throwable) {
+        Failure(exceptionMessage = ErrorHandler.fromException(throwable).errorMessages)
     }
 }
