@@ -19,6 +19,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -32,8 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.checkweather.core.Dimens
+import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import com.example.checkweather.ui.theme.White
+import com.example.domain.entities.WeatherDataEntity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +52,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreenContent() {
+fun HomeScreenContent(
+    viewModel: HomeScreenViewModel = hiltViewModel()
+) {
+    var weatherState by remember { MutableStateOf<WeatherDataEntity>(We) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -179,7 +186,15 @@ fun WeatherDetailsRowItem(icon: Int, text: String, value: String) {
         )
     }
 }
-
+@Composable
+fun LoadingView() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "Loading...", color = White)
+    }
+}
 
 @Composable
 fun ForecastDaysView() {
