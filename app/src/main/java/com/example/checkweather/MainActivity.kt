@@ -42,8 +42,10 @@ import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import com.example.checkweather.ui.theme.White
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +65,6 @@ fun HomeScreenContent(
     var weatherState by remember {
         mutableStateOf<WeatherUiState>(WeatherUiState.LoadingState)
     }
-
     LaunchedEffect(Unit) {
         val result = viewModel.getWeatherData()
         weatherState = result
@@ -82,7 +83,7 @@ fun HomeScreenContent(
             }
 
             is WeatherUiState.ErrorState -> {
-                Text(text = "Error loading weather!", color = Color.Red)
+                Text(text = (weatherState as WeatherUiState.ErrorState).errorMessage)
             }
         }
 

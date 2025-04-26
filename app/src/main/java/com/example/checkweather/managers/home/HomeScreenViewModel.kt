@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
     ViewModel() {
-    suspend fun getWeatherData() :WeatherUiState{
-        when (val response = weatherRepository.getWeatherData(
+    suspend fun getWeatherData(): WeatherUiState {
+        return when (val response = weatherRepository.getWeatherData(
             WeatherRequestEntity(
                 city = "Cairo",
                 country = "EG",
@@ -23,19 +23,12 @@ class HomeScreenViewModel @Inject constructor(private val weatherRepository: Wea
             )
         )) {
             is Success<WeatherDataEntity> -> {
-                println(response.data)
-                print("Success");
                 WeatherUiState.SuccessState(weatherData = response.data)
             }
-
             is Failure<WeatherDataEntity> -> {
                 println("Fail")
                 WeatherUiState.ErrorState(response.exceptionMessage)
             }
-            else -> {
-                println("Error")
-            }
         }
-        return WeatherUiState.LoadingState
     }
 }

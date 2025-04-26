@@ -1,4 +1,4 @@
-package com.example.data.data_source.DI
+package com.example.data.data_source
 
 import com.example.data.data_source.local_data_source.LocalDataSource
 import com.example.data.data_source.local_data_source.LocalDataSourceImpl
@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class Di {
+abstract class DataSourceModule {
 
     @Binds
     abstract fun bindRemoteDataSourceImpl(
