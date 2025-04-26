@@ -189,7 +189,8 @@ data class DataItem(
             snowDepth = snowDepth,
             maxDhi = maxDhi,
             highTemp = highTemp,
-            temp = temp
+            temp = temp,
+            dataTime = datetime
         )
     }
 }

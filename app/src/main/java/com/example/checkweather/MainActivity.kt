@@ -20,11 +20,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -43,9 +45,12 @@ import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import com.example.checkweather.ui.theme.White
+import com.example.domain.entities.WeatherDataEntity
 import dagger.hilt.android.AndroidEntryPoint
 
-
+val LocalWeatherData = staticCompositionLocalOf<WeatherDataEntity> {
+    error("No weather data found! Did you forget to provide it?")
+}
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +58,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CheckWeatherTheme {
+
+
                 HomeScreenContent()
             }
         }
@@ -80,7 +87,12 @@ fun HomeScreenContent(
             }
 
             is WeatherUiState.SuccessState -> {
-                HomeScreenBody(modifier = Modifier.padding(paddingValues))
+                val weatherData = (weatherState as WeatherUiState.SuccessState).weatherData
+                CompositionLocalProvider(LocalWeatherData provides weatherData) {
+                    HomeScreenBody(
+                        modifier = Modifier.padding(paddingValues),
+                    )
+                }
             }
 
             is WeatherUiState.ErrorState -> {
@@ -121,7 +133,7 @@ fun LocationRowView() {
             tint = Color.White
         )
         Text(
-            text = stringResource(R.string.paris),
+            text = LocalWeatherData.current.cityName,
             color = Color.White,
             fontSize = 24.sp,
             modifier = Modifier.padding(start = 4.dp, top = 4.dp)
@@ -144,17 +156,19 @@ fun CurrentWeatherView(modifier: Modifier) {
             .padding(top = Dimens.PaddingLarge, bottom = Dimens.PaddingMedium),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "June 07",
-            fontSize = 40.sp,
-            color = White,
-            fontWeight = FontWeight.Bold
-        )
+        LocalWeatherData.current.data[0].dataTime?.let {
+            Text(
+                text = it,
+                fontSize = 40.sp,
+                color = White,
+                fontWeight = FontWeight.Bold
+            )
+        }
         Box(
             Modifier.padding(bottom = 8.dp)
         )
         Text(
-            text = "Updated at 6/7/2025 10:00PM",
+            text = "Updated at ${LocalWeatherData.current.data[0].dataTime}",
             color = Color.White,
             fontSize = 16.sp
         )
@@ -163,14 +177,16 @@ fun CurrentWeatherView(modifier: Modifier) {
             contentDescription = stringResource(R.string.temp_icon),
             tint = White
         )
+        LocalWeatherData.current.data[0].weather?.description?.let {
+            Text(
+                text = it,
+                color = White,
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
         Text(
-            text = "Clear",
-            color = White,
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = "25°C",
+            text = "${LocalWeatherData.current.data[0].temp}°C",
             color = White,
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold
@@ -187,7 +203,7 @@ fun WeatherDetailsRow() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         WeatherDetailsRowItem(R.drawable.search_icon, "HUMIDITY", "56%")
-        WeatherDetailsRowItem(R.drawable.group, "WIND", "4.63km/h")
+        WeatherDetailsRowItem(R.drawable.group, "WIND", "${LocalWeatherData.current.data[0].windSpd}km/h")
         WeatherDetailsRowItem(R.drawable.icon_feels_like, "FEELS LIKE", "22°")
     }
 }
@@ -241,8 +257,8 @@ fun ForecastDayViewItem(day: String, temp: String, wind: String) {
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun HomeScreenContentPreview() {
-    HomeScreenContent()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun HomeScreenContentPreview() {
+//    HomeScreenContent()
+//}

@@ -14,7 +14,7 @@ data class DataItemEntity(
 
     val windSpd: Any? = null,
     val ozone: Double? = null,
-
+    val dataTime : String? = null,
     val validDate: String? = null,
 
     val mDoubleemp: Any? = null,
