@@ -12,7 +12,7 @@ import javax.inject.Inject
 class WeatherRepositoryImpl @Inject constructor(private val remoteDataSource: RemoteDataSource) :
     WeatherRepository {
     override suspend fun getWeatherData(weatherRequestEntity: WeatherRequestEntity): ApiResult<WeatherDataEntity> {
-        return executeApi<WeatherDataEntity> {
+        return executeApi {
             val response = remoteDataSource.getWeatherData(
                 weatherRequestModel = WeatherRequestModel.fromDomain(weatherRequestEntity)
             )
