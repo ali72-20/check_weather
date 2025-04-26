@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import android.os.Handler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.res.painterResource
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +50,7 @@ fun SplashActivityContent() {
             .fillMaxSize()
             .paint(
                 painterResource(R.drawable.splash_icon),
-            )
+            ).background(color = MaterialTheme.colorScheme.secondary)
     )
 }
 

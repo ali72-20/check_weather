@@ -1,15 +1,20 @@
 package com.example.checkweather
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -57,15 +62,17 @@ fun HomeScreenBody(modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxSize()
             .paint(painterResource(R.drawable.city_view), contentScale = ContentScale.Crop)
-    )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 48.dp, start = 16.dp)
-
     ) {
-        LocationRowView()
-        CurrentWeatherView(modifier)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 48.dp, start = 16.dp)
+
+        ) {
+            LocationRowView()
+            CurrentWeatherView(modifier)
+            WeatherDetailsRow()
+        }
     }
 }
 
@@ -92,10 +99,13 @@ fun LocationRowView() {
         )
     }
 }
+
 @Composable
 fun CurrentWeatherView(modifier: Modifier) {
     Column(
-        Modifier.fillMaxSize().padding(top = 48.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 48.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -112,9 +122,78 @@ fun CurrentWeatherView(modifier: Modifier) {
             color = Color.White,
             fontSize = 16.sp
         )
-
+        Icon(
+            painterResource(R.drawable.icon),
+            contentDescription = stringResource(R.string.temp_icon),
+            tint = White
+        )
+        Text(
+            text = "Clear",
+            color = White,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = "25°C",
+            color = White,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
+
+@Composable
+fun WeatherDetailsRow() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        WeatherDetailsRowItem(R.drawable.search_icon, "HUMIDITY", "56%")
+        WeatherDetailsRowItem(R.drawable.group, "WIND", "4.63km/h")
+        WeatherDetailsRowItem(R.drawable.icon_feels_like, "FEELS LIKE", "22°")
+    }
+}
+
+@Composable
+fun WeatherDetailsRowItem(icon: Int, text: String, value: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(painterResource(icon), contentDescription = "de", tint = White)
+        Text(
+            text = text,
+            color = White,
+            fontSize = 14.sp,
+        )
+        Text(
+            text = value,
+            color = White,
+            fontSize = 14.sp,
+        )
+    }
+}
+
+
+@Composable
+fun ForecastDaysView() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Gray)
+    ) {
+        LazyRow {
+
+        }
+    }
+}
+
+@Composable
+fun ForecastDayViewItem(day: String, temp: String, wind: String) {
+
+}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenContentPreview() {
