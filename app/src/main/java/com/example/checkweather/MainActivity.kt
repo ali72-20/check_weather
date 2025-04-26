@@ -19,8 +19,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -33,11 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.checkweather.core.Dimens
 import com.example.checkweather.managers.home.HomeScreenViewModel
+import com.example.checkweather.managers.home.WeatherUiState
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import com.example.checkweather.ui.theme.White
-import com.example.domain.entities.WeatherDataEntity
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,14 +58,34 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreenContent(
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>()
 ) {
-    var weatherState by remember { MutableStateOf<WeatherDataEntity>(We) }
+    var weatherState by remember {
+        mutableStateOf<WeatherUiState>(WeatherUiState.LoadingState)
+    }
+
+    LaunchedEffect(Unit) {
+        val result = viewModel.getWeatherData()
+        weatherState = result
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
     ) { paddingValues ->
-        HomeScreenBody(modifier = Modifier.padding(paddingValues))
+        when (weatherState) {
+            is WeatherUiState.LoadingState -> {
+                LoadingView()
+            }
+
+            is WeatherUiState.SuccessState -> {
+                HomeScreenBody(modifier = Modifier.padding(paddingValues))
+            }
+
+            is WeatherUiState.ErrorState -> {
+                Text(text = "Error loading weather!", color = Color.Red)
+            }
+        }
+
     }
 }
 
@@ -186,6 +211,7 @@ fun WeatherDetailsRowItem(icon: Int, text: String, value: String) {
         )
     }
 }
+
 @Composable
 fun LoadingView() {
     Box(
@@ -203,7 +229,7 @@ fun ForecastDaysView() {
             .fillMaxSize()
             .background(Color.Gray)
     ) {
-        LazyRow(){
+        LazyRow() {
         }
     }
 }

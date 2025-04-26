@@ -55,7 +55,7 @@ dependencies {
     implementation(project(":domain"))
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+    implementation (libs.androidx.hilt.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
