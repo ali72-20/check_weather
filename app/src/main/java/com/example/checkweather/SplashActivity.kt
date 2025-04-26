@@ -48,14 +48,17 @@ fun SplashActivityContent() {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.primary)
             .paint(
                 painterResource(R.drawable.splash_icon),
-            ).background(color = MaterialTheme.colorScheme.secondary)
+            )
     )
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewSplashActivityContent() {
-    SplashActivityContent()
+    CheckWeatherTheme {
+        SplashActivityContent()
+    }
 }

@@ -26,10 +26,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.checkweather.core.Dimens
 import com.example.checkweather.ui.theme.CheckWeatherTheme
 import com.example.checkweather.ui.theme.White
 
@@ -105,7 +107,7 @@ fun CurrentWeatherView(modifier: Modifier) {
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(top = 48.dp),
+            .padding(top = Dimens.PaddingLarge, bottom = Dimens.PaddingMedium),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -139,6 +141,7 @@ fun CurrentWeatherView(modifier: Modifier) {
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold
         )
+
     }
 }
 
@@ -164,8 +167,10 @@ fun WeatherDetailsRowItem(icon: Int, text: String, value: String) {
         Icon(painterResource(icon), contentDescription = "de", tint = White)
         Text(
             text = text,
-            color = White,
-            fontSize = 14.sp,
+            style = TextStyle(
+                color = White,
+                fontSize = 14.sp,
+            )
         )
         Text(
             text = value,
