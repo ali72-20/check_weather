@@ -190,6 +190,7 @@ data class DataItem(
             maxDhi = maxDhi,
             highTemp = highTemp,
             temp = temp,
+            rh = rh,
             dataTime = datetime
         )
     }

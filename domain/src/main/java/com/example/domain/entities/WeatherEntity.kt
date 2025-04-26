@@ -2,8 +2,8 @@ package com.example.domain.entities
 
 data class WeatherDataEntity(
     val cityName: String,
-    val timeZone : String,
-    val data : List<DataItemEntity>
+    val timeZone: String,
+    val data: List<DataItemEntity>
 )
 
 
@@ -14,9 +14,9 @@ data class DataItemEntity(
 
     val windSpd: Any? = null,
     val ozone: Double? = null,
-    val dataTime : String? = null,
+    val dataTime: String? = null,
     val validDate: String? = null,
-
+    val rh: Double? = null,
     val mDoubleemp: Any? = null,
 
     val sunriseTs: Double? = null,
@@ -35,7 +35,7 @@ data class DataItemEntity(
 
     val temp: Any? = null,
 
-)
+    )
 
 data class WeatherEntity(
     val code: Double? = null,

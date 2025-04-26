@@ -202,7 +202,7 @@ fun WeatherDetailsRow() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        WeatherDetailsRowItem(R.drawable.search_icon, "HUMIDITY", "56%")
+        WeatherDetailsRowItem(R.drawable.search_icon, "HUMIDITY", "${LocalWeatherData.current.data[0].rh}%")
         WeatherDetailsRowItem(R.drawable.group, "WIND", "${LocalWeatherData.current.data[0].windSpd}km/h")
         WeatherDetailsRowItem(R.drawable.icon_feels_like, "FEELS LIKE", "22°")
     }
