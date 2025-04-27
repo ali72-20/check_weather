@@ -50,13 +50,13 @@ fun ForecastErrorView(errorMessage: String, viewModel: FortCastViewModel,cityNam
         Icon(
             painterResource(R.drawable.reload),
             contentDescription = stringResource(R.string.reload),
+            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .clickable {
                     viewModel.doAction(ForcastScreenActions.GetForcastDataAction(cityName = cityName))
                 }
-                .size(40.dp)
+                .size(100.dp)
                 .padding(Dimens.PaddingSmall)
-                .background(MaterialTheme.colorScheme.secondary, RoundedCornerShape(50))
                 .clickable {
                     viewModel.doAction(ForcastScreenActions.GetForcastDataAction(cityName = cityName))
                 }
