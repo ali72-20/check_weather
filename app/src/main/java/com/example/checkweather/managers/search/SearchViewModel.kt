@@ -1,4 +1,5 @@
 package com.example.checkweather.managers.search
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +18,7 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
     var cityName = mutableStateOf("")
     var errorMessage = mutableStateOf<String?>(null)
     var cityHistory = mutableStateOf<List<CityHistoryEntity>>(emptyList())
+    var searchFragmentStates = mutableStateOf<SearchFragmentStates>(SearchFragmentStates.LoadingState)
     fun validateCityName(): Boolean {
         return if (cityName.value.isEmpty() || cityName.value.isBlank()) {
             errorMessage.value = "Please Enter City Name"
@@ -34,8 +36,8 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
         }
     }
 
-    suspend fun getHistory(): List<CityHistoryEntity>{
+    suspend fun getHistory():SearchFragmentStates{
         cityHistory = mutableStateOf(searchRepository.getSearchHistory())
-        return cityHistory.value
+        return SearchFragmentStates.SuccessState<List<CityHistoryEntity>>(data = cityHistory.value)
     }
 }

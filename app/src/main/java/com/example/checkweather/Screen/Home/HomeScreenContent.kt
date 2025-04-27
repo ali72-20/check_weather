@@ -1,9 +1,11 @@
 package com.example.checkweather.Screen.Home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -25,6 +28,7 @@ import com.example.checkweather.R
 import com.example.checkweather.core.ConstKey
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
+import com.example.checkweather.ui.theme.Blue
 
 @Composable
 fun HomeScreenContent(
@@ -70,8 +74,7 @@ fun HomeScreenContent(
 fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .paint(painterResource(R.drawable.city_view), contentScale = ContentScale.Crop)
+            .fillMaxSize().background(MaterialTheme.colorScheme.primary)
     ) {
         Column(
             modifier = Modifier
