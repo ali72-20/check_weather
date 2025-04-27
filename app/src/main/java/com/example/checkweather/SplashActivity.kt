@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.res.painterResource
+import com.example.checkweather.Screen.Home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 

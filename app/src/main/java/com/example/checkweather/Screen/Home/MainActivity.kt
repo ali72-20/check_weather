@@ -1,4 +1,4 @@
-package com.example.checkweather
+package com.example.checkweather.Screen.Home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,12 +35,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.checkweather.core.Dimens
+import com.example.checkweather.R
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 import com.example.checkweather.ui.theme.CheckWeatherTheme
@@ -51,6 +49,7 @@ import dagger.hilt.android.AndroidEntryPoint
 val LocalWeatherData = staticCompositionLocalOf<WeatherDataEntity> {
     error("No weather data found! Did you forget to provide it?")
 }
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,8 +57,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CheckWeatherTheme {
-
-
                 HomeScreenContent()
             }
         }
@@ -94,15 +91,12 @@ fun HomeScreenContent(
                     )
                 }
             }
-
             is WeatherUiState.ErrorState -> {
                 Text(text = (weatherState as WeatherUiState.ErrorState).errorMessage)
             }
         }
-
     }
 }
-
 
 @Composable
 fun HomeScreenBody(modifier: Modifier = Modifier) {
@@ -124,121 +118,6 @@ fun HomeScreenBody(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun LocationRowView() {
-    Row(modifier = Modifier.wrapContentSize()) {
-        Icon(
-            painterResource(R.drawable.location_icon),
-            contentDescription = stringResource(R.string.location_icon),
-            tint = Color.White
-        )
-        Text(
-            text = LocalWeatherData.current.cityName,
-            color = Color.White,
-            fontSize = 24.sp,
-            modifier = Modifier.padding(start = 4.dp, top = 4.dp)
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Icon(
-            contentDescription = stringResource(R.string.search_icon),
-            tint = White,
-            painter = painterResource(R.drawable.search_icon),
-            modifier = Modifier.padding(end = 16.dp)
-        )
-    }
-}
-
-@Composable
-fun CurrentWeatherView(modifier: Modifier) {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(top = Dimens.PaddingLarge, bottom = Dimens.PaddingMedium),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        LocalWeatherData.current.data[0].dataTime?.let {
-            Text(
-                text = it,
-                fontSize = 40.sp,
-                color = White,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Box(
-            Modifier.padding(bottom = 8.dp)
-        )
-        Text(
-            text = "Updated at ${LocalWeatherData.current.data[0].dataTime}",
-            color = Color.White,
-            fontSize = 16.sp
-        )
-        Icon(
-            painterResource(R.drawable.icon),
-            contentDescription = stringResource(R.string.temp_icon),
-            tint = White
-        )
-        LocalWeatherData.current.data[0].weather?.description?.let {
-            Text(
-                text = it,
-                color = White,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Text(
-            text = "${LocalWeatherData.current.data[0].temp}°C",
-            color = White,
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-    }
-}
-
-@Composable
-fun WeatherDetailsRow() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        WeatherDetailsRowItem(R.drawable.search_icon, "HUMIDITY", "${LocalWeatherData.current.data[0].rh}%")
-        WeatherDetailsRowItem(R.drawable.group, "WIND", "${LocalWeatherData.current.data[0].windSpd}km/h")
-        WeatherDetailsRowItem(R.drawable.icon_feels_like, "FEELS LIKE", "22°")
-    }
-}
-
-@Composable
-fun WeatherDetailsRowItem(icon: Int, text: String, value: String) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(painterResource(icon), contentDescription = "de", tint = White)
-        Text(
-            text = text,
-            style = TextStyle(
-                color = White,
-                fontSize = 14.sp,
-            )
-        )
-        Text(
-            text = value,
-            color = White,
-            fontSize = 14.sp,
-        )
-    }
-}
-
-@Composable
-fun LoadingView() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Loading...", color = MaterialTheme.colorScheme.primary)
-    }
-}
 
 @Composable
 fun ForecastDaysView() {

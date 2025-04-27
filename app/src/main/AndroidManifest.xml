@@ -14,7 +14,7 @@
         android:theme="@style/Theme.CheckWeather"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Screen.Home.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.CheckWeather" />
