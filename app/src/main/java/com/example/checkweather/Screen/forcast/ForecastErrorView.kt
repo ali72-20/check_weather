@@ -25,8 +25,7 @@ import com.example.checkweather.managers.forcast.ForcastScreenActions
 import com.example.checkweather.managers.forcast.FortCastViewModel
 
 @Composable
-fun ForecastErrorView(errorMessage: String, viewModel: FortCastViewModel) {
-    val cityName = LocalWeatherData.current.cityName ?: "Cairo"
+fun ForecastErrorView(errorMessage: String, viewModel: FortCastViewModel,cityName:String) {
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.primary)

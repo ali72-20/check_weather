@@ -68,7 +68,7 @@ fun DaysForcastScreenContent(
         }
 
         is ForcastScreenUIState.ForcastScreenErrorState -> {
-            ForecastErrorView(uiState.errorMessage, viewModel)
+            ForecastErrorView(uiState.errorMessage, viewModel,cityName)
         }
     }
 }
