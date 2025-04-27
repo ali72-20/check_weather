@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.checkweather.LocalWeatherData
 import com.example.checkweather.R
 
 import com.example.checkweather.core.ConstKey

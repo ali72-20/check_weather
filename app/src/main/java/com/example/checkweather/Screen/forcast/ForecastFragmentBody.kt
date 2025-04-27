@@ -38,14 +38,14 @@ fun ForecastFragmentBody(
     ) {
         Row(modifier = Modifier
             .fillMaxWidth()
-            .padding(top = Dimens.PaddingMedium)) {
+            .padding(top = Dimens.PaddingLarge)) {
             Icon(
                 painterResource(R.drawable.arrow_back_ios_24dp_5f6368_fill0_wght400_grad0_opsz24_1),
                 contentDescription = stringResource(R.string.back),
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
-                    .padding(Dimens.PaddingXSmall)
-                    .size(40.dp)
+                    .padding(Dimens.PaddingMedium)
+                    .size(24.dp)
                     .clickable {
                         navController.popBackStack()
                     }
@@ -55,7 +55,7 @@ fun ForecastFragmentBody(
                 cityName,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
-                    .padding(Dimens.PaddingXSmall)
+                    .padding(Dimens.PaddingMedium)
                     .size(40.dp)
                     .clickable {
                         navController.popBackStack()
