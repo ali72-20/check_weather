@@ -6,6 +6,7 @@ import com.example.checkweather.Screen.search.SearchFragment
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.checkweather.Screen.Home.HomeScreenContent
+import com.example.checkweather.Screen.forcast.DaysForcastFragment
 
 @Composable
 fun AppNavigation() {
@@ -17,6 +18,9 @@ fun AppNavigation() {
         }
         composable(AppRoutesManger.SearchScreen.route) {
             SearchFragment(navController = navController)
+        }
+        composable(AppRoutesManger.DaysForcastScreen.route){
+            DaysForcastFragment()
         }
     }
 }

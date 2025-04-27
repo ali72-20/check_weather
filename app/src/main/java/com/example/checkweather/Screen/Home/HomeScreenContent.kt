@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,7 +26,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.checkweather.LocalWeatherData
 import com.example.checkweather.R
+import com.example.checkweather.core.AppRoutesManger
 import com.example.checkweather.core.ConstKey
+import com.example.checkweather.core.Dimens
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 import com.example.checkweather.ui.theme.Blue
@@ -85,6 +88,13 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
             LocationRowView(navController = navController)
             CurrentWeatherView(modifier)
             WeatherDetailsRow()
+            Button(
+                modifier = Modifier.padding(Dimens.PaddingLarge),
+                onClick = {
+                navController.navigate(AppRoutesManger.DaysForcastScreen.route)
+            }) {
+                Text(text = "Forcast screen")
+            }
         }
     }
 }
