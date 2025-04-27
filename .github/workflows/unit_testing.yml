@@ -26,11 +26,3 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew test
-
-      - name: Generate JaCoCo test coverage report
-        run: ./gradlew jacocoTestReport
-
-      - name: Upload coverage report to GitHub Actions
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./build/reports/jacoco/test/jacocoTestReport.xml  # Path to your JaCoCo XML report

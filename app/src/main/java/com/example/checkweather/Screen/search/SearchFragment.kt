@@ -3,12 +3,15 @@ package com.example.checkweather.Screen.search
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -16,7 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -34,17 +39,20 @@ fun SearchFragment(
     navController: NavController
 ) {
     LaunchedEffect(Unit) {
-       val result = viewModel.getHistory()
-       viewModel.searchFragmentStates.value = result
+        val result = viewModel.getHistory()
+        viewModel.searchFragmentStates.value = result
     }
-    when(viewModel.searchFragmentStates.value){
+    when (viewModel.searchFragmentStates.value) {
         is SearchFragmentStates.LoadingState -> {
             LoadingView()
         }
+
         is SearchFragmentStates.SuccessState<*> -> {
-            SearchFragmentContent(viewModel,navController)
+            SearchFragmentContent(viewModel, navController)
         }
+
         is SearchFragmentStates.ErrorState -> {
+
         }
     }
 }
@@ -53,10 +61,26 @@ fun SearchFragment(
 @Composable
 fun SearchFragmentContent(viewModel: SearchViewModel, navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(painterResource(R.drawable.bg)),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Row {
+            Icon(
+                painterResource(R.drawable.arrow_back_ios_24dp_5f6368_fill0_wght400_grad0_opsz24_1),
+                contentDescription = "ArrowBack",
+                modifier = Modifier.clickable{
+                    navController.popBackStack()
+                }
+            )
+            Spacer(modifier = Modifier.padding(Dimens.PaddingSmall))
+            Text(
+                text = "Back",
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
         TextField(
             shape = MaterialTheme.shapes.medium,
             value = viewModel.cityName.value,
