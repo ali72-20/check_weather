@@ -35,7 +35,8 @@ class WeatherRepositoryImplTest {
     fun `test getWeatherData returns success result`() = runTest {
         val weatherRequestEntity = WeatherRequestEntity("Cairo", days = 7)
         val mockWeatherDataEntity = WeatherDataEntity("cairo", "EG", listOf())
-        val mockWeatherDataResponse = WeatherDataResponse("cairo", "EG", listOf())
+        val mockWeatherDataResponse =
+            WeatherDataResponse(cityName = "cairo", timezone = "EG", data = listOf())
 
         whenever(remoteDataSource.getWeatherData(WeatherRequestModel.fromDomain(weatherRequestEntity)))
             .thenReturn(mockWeatherDataResponse)
@@ -51,7 +52,7 @@ class WeatherRepositoryImplTest {
     @Test
     fun `test getWeatherData returns error result`() = runTest {
         val weatherRequestEntity = WeatherRequestEntity("Cairo", days = 7)
-        val errorMessage = "Error fetching weather data"
+        val errorMessage = "Oops! Something went wrong. Our team is working on it"
 
         whenever(remoteDataSource.getWeatherData(WeatherRequestModel.fromDomain(weatherRequestEntity)))
             .thenThrow(RuntimeException(errorMessage))
