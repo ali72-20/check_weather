@@ -169,7 +169,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 Ali Safwat  
 - GitHub: [@ali72-20](https://github.com/ali72-20)  
 - LinkedIn: [ali-safwat-1801a1222](https://www.linkedin.com/in/ali-safwat-1801a1222)  
-- Email: ali.safwat@example.com  
+- Email: alisafwat11@gmail.com
 
 Project link: https://github.com/ali72-20/modular-weather-app
 
