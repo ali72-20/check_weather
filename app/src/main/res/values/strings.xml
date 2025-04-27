@@ -5,4 +5,8 @@
     <string name="paris">Paris</string>
     <string name="location_icon">Location Icon</string>
     <string name="temp_icon">temp icon</string>
+    <string name="updated_at">Updated at</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="feels_like">Feels Like</string>
 </resources>

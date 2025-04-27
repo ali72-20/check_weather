@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.checkweather.LocalWeatherData
 import com.example.checkweather.R
 import com.example.checkweather.core.Dimens
 import com.example.checkweather.ui.theme.White
@@ -36,10 +36,10 @@ fun CurrentWeatherView(modifier: Modifier) {
             )
         }
         Box(
-            Modifier.padding(bottom = 8.dp)
+            Modifier.padding(bottom = Dimens.PaddingXSmall)
         )
         Text(
-            text = "Updated at ${LocalWeatherData.current.data[0].dataTime}",
+            text = "${stringResource(R.string.updated_at)} ${LocalWeatherData.current.data[0].dataTime}",
             color = Color.White,
             fontSize = 16.sp
         )
