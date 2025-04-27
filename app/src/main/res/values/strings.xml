@@ -11,5 +11,7 @@
     <string name="feels_like">Feels Like</string>
     <string name="enter_city">Enter City</string>
     <string name="min_temp">Min temp: </string>
-    <string name="max_temp">Max temp: </string>"
+    <string name="max_temp">Max temp: </string>
+    <string name="reload">Reload</string>
+    <string name="waring">Waring</string>"
 </resources>

@@ -3,6 +3,7 @@ package com.example.checkweather.Screen.forcast
 import android.R.style
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,10 +26,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.example.checkweather.R
 import com.example.checkweather.core.ConstKey
 import com.example.checkweather.core.Dimens
 import com.example.checkweather.managers.forcast.ForcastScreenActions
@@ -45,12 +49,12 @@ fun DaysForcastFragment(
     LaunchedEffect(Unit) {
         viewModel.doAction(ForcastScreenActions.GetForcastDataAction("Cairo"))
     }
-    DaysForcastScreenBody(uiState)
+    DaysForcastScreenBody(uiState,viewModel)
 }
 
 
 @Composable
-fun DaysForcastScreenBody(state: ForcastScreenUIState) {
+fun DaysForcastScreenBody(state: ForcastScreenUIState,viewModel: FortCastViewModel) {
     when (state) {
         is ForcastScreenUIState.ForcastScreenLoadingState -> {
             ShimmerEffectLoadingView()
@@ -61,7 +65,7 @@ fun DaysForcastScreenBody(state: ForcastScreenUIState) {
         }
 
         is ForcastScreenUIState.ForcastScreenErrorState -> {
-            ErrorView(state.errorMessage)
+            ErrorView(state.errorMessage, viewModel)
         }
     }
 }
@@ -94,11 +98,11 @@ fun DaysForcastListItem(dataItemEntity: DataItemEntity) {
         ) {
             Column() {
                 Text(
-                    text = dataItemEntity.dataTime?:"Date",
+                    text = dataItemEntity.dataTime ?: "Date",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = Modifier.heightIn(Dimens.PaddingXXSmall))
-                WeatherIcon(dataItemEntity.weather?.icon?:"")
+                WeatherIcon(dataItemEntity.weather?.icon ?: "")
                 Text(
                     text = "${dataItemEntity.temp}°C",
                     style = MaterialTheme.typography.bodyMedium
@@ -127,14 +131,32 @@ fun ShimmerEffectLoadingView() {
 
 
 @Composable
-fun ErrorView(errorMessage: String) {
-
+fun ErrorView(errorMessage: String, viewModel: FortCastViewModel) {
+    Column(modifier = Modifier.background(MaterialTheme.colorScheme.primary)) {
+        Image(
+            painterResource(R.drawable.warning),
+            contentDescription = stringResource(R.string.waring)
+        )
+        Spacer(modifier = Modifier.heightIn(Dimens.PaddingXXSmall))
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(Dimens.PaddingMedium)
+        )
+        Spacer(modifier = Modifier.heightIn(Dimens.PaddingXXSmall))
+        Image(
+            painterResource(R.drawable.reload),
+            contentDescription = stringResource(R.string.reload),
+            modifier = Modifier.clickable {
+                viewModel.doAction(ForcastScreenActions.GetForcastDataAction(cityName = "Cairo"))
+            },
+        )
+    }
 }
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DaysForcastFragmentPreview() {
-    DaysForcastFragment()
-
+    ErrorView("Error", viewModel = hiltViewModel <FortCastViewModel>())
 }

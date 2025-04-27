@@ -1,9 +1,14 @@
 package com.example.checkweather.Screen.Home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -16,11 +21,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -29,9 +37,12 @@ import com.example.checkweather.R
 import com.example.checkweather.core.AppRoutesManger
 import com.example.checkweather.core.ConstKey
 import com.example.checkweather.core.Dimens
+import com.example.checkweather.managers.forcast.ForcastScreenActions
+import com.example.checkweather.managers.forcast.FortCastViewModel
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 import com.example.checkweather.ui.theme.Blue
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Composable
 fun HomeScreenContent(
@@ -67,7 +78,7 @@ fun HomeScreenContent(
             }
 
             is WeatherUiState.ErrorState -> {
-                Text(text = (weatherState as WeatherUiState.ErrorState).errorMessage)
+                ErrorViewHome(viewModel = viewModel, errorMessage = (weatherState as WeatherUiState.ErrorState).errorMessage)
             }
         }
     }
@@ -96,5 +107,31 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
                 Text(text = "Forcast screen")
             }
         }
+    }
+}
+@Composable
+fun ErrorViewHome(errorMessage: String, viewModel: HomeScreenViewModel) {
+    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+        Image(
+            painterResource(R.drawable.warning),
+            contentDescription = stringResource(R.string.waring)
+        )
+        Spacer(modifier = Modifier.heightIn(Dimens.PaddingXXSmall))
+        Text(
+            textAlign = TextAlign.Center,
+            text = errorMessage,
+            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+            modifier = Modifier.padding(Dimens.PaddingMedium)
+        )
+        Spacer(modifier = Modifier.heightIn(Dimens.PaddingXXSmall))
+        Image(
+            painterResource(R.drawable.reload),
+            contentDescription = stringResource(R.string.reload),
+            modifier = Modifier.clickable {
+
+            },
+        )
     }
 }
