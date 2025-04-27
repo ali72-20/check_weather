@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-
+    implementation (libs.play.services.location)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -52,8 +52,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
+    implementation (libs.coil.compose)
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.benchmark.macro)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation (libs.androidx.hilt.navigation.compose)

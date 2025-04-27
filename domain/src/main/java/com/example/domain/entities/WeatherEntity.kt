@@ -24,7 +24,7 @@ data class DataItemEntity(
     val weather: WeatherEntity? = null,
 
     val appMaxTemp: Double? = null,
-
+    val appMinTemp:Double?= null,
     val maxTemp: Any? = null,
 
     val snowDepth: Double? = null,

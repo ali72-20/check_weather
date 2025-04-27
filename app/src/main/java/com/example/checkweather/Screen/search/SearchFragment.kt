@@ -34,9 +34,9 @@ fun SearchFragment(
     navController: NavController
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getHistory()
+       val result = viewModel.getHistory()
+       viewModel.searchFragmentStates.value = result
     }
-    SearchFragmentContent(viewModel, navController)
     when(viewModel.searchFragmentStates.value){
         is SearchFragmentStates.LoadingState -> {
             LoadingView()
@@ -65,7 +65,7 @@ fun SearchFragmentContent(viewModel: SearchViewModel, navController: NavControll
             },
             label = { Text(text = stringResource(R.string.enter_city)) },
             placeholder = { Text(text = "City") },
-            isError = viewModel.errorMessage.value != null
+            isError = viewModel.errorMessage.value != null,
         )
         Button(
             onClick = {

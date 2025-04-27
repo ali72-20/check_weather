@@ -138,7 +138,7 @@ data class DataItem(
     val cloudsHi: Double? = null,
 
     @field:SerializedName("app_min_temp")
-    val appMDoubleemp: Double? = null,
+    val appMinTemp: Double? = null,
 
     @field:SerializedName("moon_phase_lunation")
     val moonPhaseLunation: Double? = null,
@@ -191,7 +191,8 @@ data class DataItem(
             highTemp = highTemp,
             temp = temp,
             rh = rh,
-            dataTime = datetime
+            dataTime = datetime,
+            appMinTemp = appMinTemp
         )
     }
 }

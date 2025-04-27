@@ -25,12 +25,12 @@ fun WeatherDetailsRow() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         WeatherDetailsRowItem(
-            R.drawable.search_icon,
+            R.drawable.group,
             stringResource(R.string.humidity),
             "${LocalWeatherData.current.data[0].rh}%"
         )
         WeatherDetailsRowItem(
-            R.drawable.group,
+            R.drawable.icon_wind,
             stringResource(R.string.wind),
             "${LocalWeatherData.current.data[0].windSpd}km/h"
         )
