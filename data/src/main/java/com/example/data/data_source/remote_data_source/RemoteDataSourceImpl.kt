@@ -11,7 +11,6 @@ class RemoteDataSourceImpl @Inject constructor(private val weatherServices: Weat
     override suspend fun getWeatherData(weatherRequestModel: WeatherRequestModel): WeatherDataResponse {
         return weatherServices.getWeatherData(
             city = weatherRequestModel.city,
-            country = weatherRequestModel.country,
             days = weatherRequestModel.days,
             apiKey = ApiConstants.API_KEY
         )

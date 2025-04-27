@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.MaterialTheme
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.checkweather.core.ConstKey
 import com.example.checkweather.core.Dimens
 import com.example.checkweather.managers.search.SearchViewModel
 import com.example.checkweather.ui.theme.White
@@ -40,18 +41,15 @@ fun SearchFragment(
             isError = viewModel.errorMessage.value != null
         )
         Button(onClick = {
-            if(viewModel.validateCityName()){
+            if(viewModel.validateCityName()) {
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    ConstKey.cityName,
+                    viewModel.cityName.value
+                )
                 navController.popBackStack()
             }
         }, modifier = Modifier.fillMaxWidth().padding(Dimens.PaddingSmall), shape = MaterialTheme.shapes.medium) {
             Text("search", color = White)
         }
     }
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun SearchFragmentPreview() {
-
 }

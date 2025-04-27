@@ -8,7 +8,6 @@ interface WeatherServices {
     @GET(ApiConstants.FORECAST_DAILY_END_POINT)
     suspend fun getWeatherData(
         @Query(ApiConstants.CITY_KEY) city: String,
-        @Query(ApiConstants.COUNTRY_KEY) country: String,
         @Query(ApiConstants.DAYS_KEY) days: Int,
         @Query(ApiConstants.KEY) apiKey: String
     ): WeatherDataResponse

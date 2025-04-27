@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.checkweather.LocalWeatherData
 import com.example.checkweather.R
+import com.example.checkweather.core.ConstKey
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 
@@ -33,8 +34,10 @@ fun HomeScreenContent(
     var weatherState by remember {
         mutableStateOf<WeatherUiState>(WeatherUiState.LoadingState)
     }
+    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+    val cityName = savedStateHandle?.get<String>(ConstKey.cityName)
     LaunchedEffect(Unit) {
-        val result = viewModel.getWeatherData()
+        val result = viewModel.getWeatherData(cityName = cityName)
         weatherState = result
     }
     Scaffold(
