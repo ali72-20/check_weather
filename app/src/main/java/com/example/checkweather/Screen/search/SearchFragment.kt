@@ -5,14 +5,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.checkweather.core.ConstKey
@@ -22,9 +24,12 @@ import com.example.checkweather.ui.theme.White
 
 @Composable
 fun SearchFragment(
-    viewModel :SearchViewModel = hiltViewModel<SearchViewModel>(),
+    viewModel: SearchViewModel = hiltViewModel<SearchViewModel>(),
     navController: NavController
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.getHistory()
+    }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -32,24 +37,39 @@ fun SearchFragment(
     ) {
         TextField(
             shape = MaterialTheme.shapes.medium,
-            value =viewModel.cityName.value,
-            onValueChange = {value->
+            value = viewModel.cityName.value,
+            onValueChange = { value ->
                 viewModel.cityName.value = value
             },
             label = { Text(text = "Enter City") },
             placeholder = { Text(text = "City") },
             isError = viewModel.errorMessage.value != null
         )
-        Button(onClick = {
-            if(viewModel.validateCityName()) {
-                navController.previousBackStackEntry?.savedStateHandle?.set(
-                    ConstKey.cityName,
-                    viewModel.cityName.value
-                )
-                navController.popBackStack()
-            }
-        }, modifier = Modifier.fillMaxWidth().padding(Dimens.PaddingSmall), shape = MaterialTheme.shapes.medium) {
+        Button(
+            onClick = {
+                if (viewModel.validateCityName()) {
+                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                        ConstKey.cityName,
+                        viewModel.cityName.value
+                    )
+                    navController.popBackStack()
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Dimens.PaddingSmall),
+            shape = MaterialTheme.shapes.medium
+        ) {
             Text("search", color = White)
+        }
+        LazyColumn {
+            items(viewModel.cityHistory.value.size) { index ->
+                Text(
+                    text = viewModel.cityHistory.value[index].cityName,
+                    color = Color.Blue,
+                    modifier = Modifier.padding(Dimens.PaddingSmall)
+                )
+            }
         }
     }
 }

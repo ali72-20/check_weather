@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.hilt.android)
     implementation(libs.logging.interceptor)
+    kapt ("androidx.room:room-compiler:2.7.1")
     implementation(libs.androidx.media3.common.ktx)
     implementation(project(":domain"))
     kapt(libs.hilt.android.compiler)

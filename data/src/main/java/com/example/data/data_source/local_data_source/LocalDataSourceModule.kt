@@ -23,10 +23,10 @@ object LocalDataSourceModule {
         ).build()
     }
 
-
     @Provides
-    fun provideCityHistoryDoa(dataBase: AppDataBase): CityHistoryDao {
+    fun provideCityHistoryDao(dataBase: AppDataBase): CityHistoryDao {
         return dataBase.cityHistoryDao()
     }
+
 }
 
