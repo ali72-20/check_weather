@@ -45,7 +45,7 @@ fun CurrentWeatherView(modifier: Modifier) {
                     color = Color.White.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(12.dp)
                 )
-                .shadow(4.dp, RoundedCornerShape(Dimens.PaddingXSmall))
+                .shadow(2.dp, RoundedCornerShape(Dimens.PaddingXSmall))
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -123,6 +123,6 @@ fun WeatherIcon(iconCode: String) {
         contentDescription = stringResource(R.string.weather_icon),
         modifier = Modifier
             .padding(bottom = Dimens.PaddingMedium)
-            .size(200.dp)
+            .size(100.dp)
     )
 }

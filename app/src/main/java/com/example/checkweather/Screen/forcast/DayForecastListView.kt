@@ -43,7 +43,7 @@ fun DaysForcastListItem(dataItemEntity: DataItemEntity) {
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
             Column() {

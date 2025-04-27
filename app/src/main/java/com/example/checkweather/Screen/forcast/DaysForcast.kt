@@ -35,8 +35,7 @@ fun DaysForcastFragment(
     navController: NavController
 ) {
     val uiState by viewModel.forcastUiState.collectAsState()
-    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
-    val cityName = savedStateHandle?.get<String>(ConstKey.cityName)
+    val cityName: String = LocalWeatherData.current.cityName ?: stringResource(id = R.string.cairo)
     LaunchedEffect(Unit) {
         viewModel.doAction(ForcastScreenActions.GetForcastDataAction(cityName = cityName))
     }
