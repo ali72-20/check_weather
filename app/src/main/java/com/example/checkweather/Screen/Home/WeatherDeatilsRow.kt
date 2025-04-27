@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,14 +18,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.checkweather.LocalWeatherData
 import com.example.checkweather.R
+import com.example.checkweather.core.Dimens
 import com.example.checkweather.ui.theme.White
 
 @Composable
 fun WeatherDetailsRow() {
-    Row(
+    Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         WeatherDetailsRowItem(
             R.drawable.group,
@@ -34,21 +38,18 @@ fun WeatherDetailsRow() {
             stringResource(R.string.wind),
             "${LocalWeatherData.current.data[0].windSpd}km/h"
         )
-        WeatherDetailsRowItem(
-            R.drawable.icon_feels_like,
-            stringResource(R.string.feels_like),
-            "22°"
-        )
+
     }
 }
 
 @Composable
 fun WeatherDetailsRowItem(icon: Int, text: String, value: String) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(bottom = Dimens.PaddingSmall),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
-        Icon(painterResource(icon), contentDescription = "de", tint = White)
+        Icon(painterResource(icon), contentDescription = "de", tint = White,)
         Text(
             text = text,
             style = TextStyle(

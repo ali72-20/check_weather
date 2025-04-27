@@ -14,14 +14,16 @@ import androidx.compose.ui.platform.LocalContext
 private val DarkColorScheme = darkColorScheme(
     primary = Black,
     secondary = White,
-    tertiary = Black
+    tertiary = Black,
+    background = Black
+
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = White,
     secondary = Blue,
-    tertiary = Black
-
+    tertiary = Black,
+    background = LightBlue
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
@@ -37,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 fun CheckWeatherTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

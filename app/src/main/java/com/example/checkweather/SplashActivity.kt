@@ -48,7 +48,6 @@ fun SplashActivityContent() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.primary)
             .paint(
                 painterResource(R.drawable.splash_icon),
             )

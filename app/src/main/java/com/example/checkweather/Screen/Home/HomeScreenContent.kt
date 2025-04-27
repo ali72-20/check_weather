@@ -88,7 +88,7 @@ fun HomeScreenContent(
 fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) {
     Box(
         modifier = Modifier
-            .fillMaxSize().background(MaterialTheme.colorScheme.primary)
+            .fillMaxSize().paint(painterResource(R.drawable.bg), contentScale = ContentScale.Crop)
     ) {
         Column(
             modifier = Modifier
@@ -98,7 +98,6 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
         ) {
             LocationRowView(navController = navController)
             CurrentWeatherView(modifier)
-            WeatherDetailsRow()
             Button(
                 modifier = Modifier.padding(Dimens.PaddingLarge),
                 onClick = {
