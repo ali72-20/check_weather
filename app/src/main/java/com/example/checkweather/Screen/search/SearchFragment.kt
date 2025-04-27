@@ -82,7 +82,7 @@ fun SearchFragmentContent(viewModel: SearchViewModel, navController: NavControll
                 .padding(Dimens.PaddingSmall),
             shape = MaterialTheme.shapes.medium
         ) {
-            Text("search", color = White)
+            Text(stringResource(R.string.search), color = White)
         }
         if (viewModel.cityHistory.value.isEmpty()) {
             Text("No history available", color = Color.Blue)

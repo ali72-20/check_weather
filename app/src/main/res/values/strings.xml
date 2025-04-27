@@ -14,5 +14,6 @@
     <string name="max_temp">Max temp: </string>
     <string name="reload">Reload</string>
     <string name="waring">Waring</string>
-    <string name="weather_icon">Weather Icon</string>"
+    <string name="weather_icon">Weather Icon</string>
+    <string name="search">search</string>"
 </resources>
