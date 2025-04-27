@@ -15,19 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -57,6 +52,7 @@ fun HomeScreenContent(
 ) {
     val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
     val cityName = savedStateHandle?.get<String>(ConstKey.cityName)
+    val state = viewModel.weatherState.value
     LaunchedEffect(Unit) {
         val result = viewModel.getWeatherData(cityName = cityName)
         viewModel.weatherState.value = result
@@ -65,14 +61,13 @@ fun HomeScreenContent(
         modifier = Modifier
             .fillMaxSize()
     ) { paddingValues ->
-        when (viewModel.weatherState.value) {
+        when (state) {
             is WeatherUiState.LoadingState -> {
                 HomeLoadingView()
             }
-
             is WeatherUiState.SuccessState -> {
                 val weatherData =
-                    (viewModel.weatherState.value as WeatherUiState.SuccessState).weatherData
+                    (state as WeatherUiState.SuccessState).weatherData
                 CompositionLocalProvider(LocalWeatherData provides weatherData) {
                     HomeScreenBody(
                         modifier = Modifier.padding(paddingValues),
@@ -84,7 +79,7 @@ fun HomeScreenContent(
             is WeatherUiState.ErrorState -> {
                 ErrorViewHome(
                     viewModel = viewModel,
-                    errorMessage = (viewModel.weatherState as WeatherUiState.ErrorState).errorMessage,
+                    errorMessage = (state as WeatherUiState.ErrorState).errorMessage,
                     cityName = cityName ?: stringResource(R.string.cairo)
                 )
             }
