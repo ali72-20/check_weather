@@ -40,7 +40,7 @@ fun LocationRowView(navController: NavController) {
             tint = White,
             painter = painterResource(R.drawable.search_icon),
             modifier = Modifier.padding(end = Dimens.PaddingSmall).clickable{
-                navController.navigate(AppRoutesManger.searchRout)
+                navController.navigate(AppRoutesManger.SearchScreen.route)
             }
         )
     }

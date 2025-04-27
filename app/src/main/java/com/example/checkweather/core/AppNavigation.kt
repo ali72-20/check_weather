@@ -16,7 +16,7 @@ fun AppNavigation() {
            HomeScreenContent(navController = navController)
         }
         composable(AppRoutesManger.SearchScreen.route) {
-            SearchFragment()
+            SearchFragment(navController = navController)
         }
     }
 }

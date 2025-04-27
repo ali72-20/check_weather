@@ -15,11 +15,10 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
     ViewModel() {
     lateinit var weatherDataEntity: WeatherDataEntity
-    suspend fun getWeatherData(): WeatherUiState {
+    suspend fun getWeatherData( cityName:String): WeatherUiState {
         return when (val response = weatherRepository.getWeatherData(
             WeatherRequestEntity(
-                city = "Cairo",
-                country = "EG",
+                city = cityName,
                 days = 8
             )
         )) {
