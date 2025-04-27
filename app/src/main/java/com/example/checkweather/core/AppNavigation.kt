@@ -20,7 +20,7 @@ fun AppNavigation() {
             SearchFragment(navController = navController)
         }
         composable(AppRoutesManger.DaysForcastScreen.route){
-            DaysForcastFragment()
+            DaysForcastFragment(navController = navController)
         }
     }
 }

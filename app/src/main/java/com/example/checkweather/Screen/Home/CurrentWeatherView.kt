@@ -24,6 +24,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 
@@ -44,6 +45,7 @@ fun CurrentWeatherView(modifier: Modifier) {
                     color = Color.White.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(12.dp)
                 )
+                .shadow(4.dp, RoundedCornerShape(Dimens.PaddingXSmall))
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -56,7 +58,7 @@ fun CurrentWeatherView(modifier: Modifier) {
                 )
                 LocalWeatherData.current.data[0].dataTime?.let {
                     Text(
-                        text = "ToDay $it",
+                        text = stringResource(R.string.today, it),
                         fontSize = 24.sp,
                         color = White,
                         fontWeight = FontWeight.Bold

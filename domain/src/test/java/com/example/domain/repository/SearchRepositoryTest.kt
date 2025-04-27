@@ -20,7 +20,7 @@ class SearchRepositoryTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.openMocks(this) // Initialize mocks
+        MockitoAnnotations.openMocks(this)
     }
 
     @Test
@@ -32,19 +32,17 @@ class SearchRepositoryTest {
 
     @Test
     fun testGetSearchHistory() = runTest {
-        // Arrange
+
         val cityHistory = listOf(
             CityHistoryEntity(1,"Cairo"),
             CityHistoryEntity(2,"Pairs")
         )
-
-        // Mock the response of getSearchHistory
         whenever(searchRepository.getSearchHistory()).thenReturn(cityHistory)
 
-        // Act
+
         val result = searchRepository.getSearchHistory()
 
-        // Assert
+
         assertEquals(cityHistory, result)
     }
 }

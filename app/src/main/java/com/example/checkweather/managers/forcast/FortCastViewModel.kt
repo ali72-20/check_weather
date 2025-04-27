@@ -2,8 +2,6 @@ package com.example.checkweather.managers.forcast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.domain.core.api_result.ApiResult
 import com.example.domain.core.api_result.Failure
 import com.example.domain.core.api_result.Success
 import com.example.domain.entities.WeatherRequestEntity
@@ -23,10 +21,11 @@ class FortCastViewModel @Inject constructor(private val weatherRepository: Weath
     var forcastUiState = _forcastScreenUIState.asStateFlow()
 
 
-    private suspend fun getForcastData(cityName: String) {
+    private suspend fun getForcastData(cityName: String?) {
+        val city = cityName ?: "Cairo"
         val result = weatherRepository.getWeatherData(
             WeatherRequestEntity(
-                city = cityName,
+                city = city,
                 days = 7
             )
         )

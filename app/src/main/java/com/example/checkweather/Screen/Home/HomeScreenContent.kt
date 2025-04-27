@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,12 +38,9 @@ import com.example.checkweather.R
 import com.example.checkweather.core.AppRoutesManger
 import com.example.checkweather.core.ConstKey
 import com.example.checkweather.core.Dimens
-import com.example.checkweather.managers.forcast.ForcastScreenActions
-import com.example.checkweather.managers.forcast.FortCastViewModel
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
-import com.example.checkweather.ui.theme.Blue
-import dagger.hilt.android.scopes.ViewModelScoped
+
 
 @Composable
 fun HomeScreenContent(
@@ -64,7 +62,7 @@ fun HomeScreenContent(
     ) { paddingValues ->
         when (weatherState) {
             is WeatherUiState.LoadingState -> {
-                LoadingView()
+                HomeLoadingView()
             }
 
             is WeatherUiState.SuccessState -> {
@@ -88,7 +86,8 @@ fun HomeScreenContent(
 fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) {
     Box(
         modifier = Modifier
-            .fillMaxSize().paint(painterResource(R.drawable.bg), contentScale = ContentScale.Crop)
+            .fillMaxSize()
+            .paint(painterResource(R.drawable.bg), contentScale = ContentScale.Crop)
     ) {
         Column(
             modifier = Modifier
@@ -100,17 +99,20 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
             CurrentWeatherView(modifier)
             Button(
                 modifier = Modifier.padding(Dimens.PaddingLarge),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
                 onClick = {
                 navController.navigate(AppRoutesManger.DaysForcastScreen.route)
             }) {
-                Text(text = "Forcast screen")
+                Text(text = stringResource(R.string.forecast_screen))
             }
         }
     }
 }
 @Composable
 fun ErrorViewHome(errorMessage: String, viewModel: HomeScreenViewModel) {
-    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary),
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.primary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
         Image(

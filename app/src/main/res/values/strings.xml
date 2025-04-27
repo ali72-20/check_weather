@@ -15,5 +15,12 @@
     <string name="reload">Reload</string>
     <string name="waring">Waring</string>
     <string name="weather_icon">Weather Icon</string>
-    <string name="search">search</string>"
+    <string name="search">search</string>
+    <string name="no_history">No History</string>
+    <string name="city">City Name</string>
+    <string name="back">Back</string>
+    <string name="arrowback">ArrowBack</string>
+    <string name="forecast_screen">Forecast screen</string>
+    <string name="today">ToDay %1$s</string>
+    <string name="cairo">Cairo</string>"
 </resources>

@@ -2,7 +2,7 @@ package com.example.checkweather.managers.forcast
 
 sealed class ForcastScreenActions {
     data class GetForcastDataAction(
-        val cityName: String
+        val cityName: String?
     ) : ForcastScreenActions() {}
 }
 
