@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
     implementation (libs.coil.compose)
+    implementation( libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(libs.play.services.location)
