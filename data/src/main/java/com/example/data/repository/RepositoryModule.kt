@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import com.example.domain.repository.SearchRepository
 import com.example.domain.repository.WeatherRepository
 import dagger.Binds
 import dagger.Module
@@ -14,4 +15,10 @@ abstract class RepositoryModule {
     abstract fun bindWeatherRepository(
         weatherRepositoryImpl: WeatherRepositoryImpl
     ): WeatherRepository
+
+
+    @Binds
+    abstract fun bindSearchRepository(
+        searchRepositoryImpl: SearchRepositoryImpl
+    ):SearchRepository
 }
