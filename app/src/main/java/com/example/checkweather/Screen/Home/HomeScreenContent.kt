@@ -90,6 +90,7 @@ fun HomeScreenContent(
 
 @Composable
 fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) {
+    val cityNme = LocalWeatherData.current.cityName
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -103,16 +104,18 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
         ) {
             LocationRowView(navController = navController)
             CurrentWeatherView(modifier)
-           Row(modifier = Modifier.fillMaxWidth().padding(Dimens.PaddingXXSmall), horizontalArrangement = Arrangement.SpaceBetween){
+           Row(modifier = Modifier
+               .fillMaxWidth()
+               .padding(Dimens.PaddingXXSmall), horizontalArrangement = Arrangement.SpaceBetween){
                Text(
-                   "7-days forecast",
+                   stringResource(R.string._7_days_forecast),
                    color = MaterialTheme.colorScheme.primary
                )
                Text(
-                   "view all",
+                   stringResource(R.string.view_all),
                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.clickable{
-                        navController.navigate(AppRoutesManger.DaysForcastScreen.route)
+                        navController.navigate(AppRoutesManger.DaysForcastScreen.passCity(cityName = cityNme))
                     }
                )
            }
@@ -134,7 +137,7 @@ fun ForecastItem(dataItemEntity: DataItemEntity){
             .background(
                 color = Color.White.copy(alpha = 0.3f),
                 shape = RoundedCornerShape(12.dp)
-    )){
+            )){
         Column(
             modifier = Modifier.padding(Dimens.PaddingMedium),
             horizontalAlignment = Alignment.CenterHorizontally

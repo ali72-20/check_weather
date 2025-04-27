@@ -32,17 +32,15 @@ import com.example.domain.entities.DataItemEntity
 @Composable
 fun DaysForcastFragment(
     viewModel: FortCastViewModel = hiltViewModel<FortCastViewModel>(),
-    navController: NavController
+    navController: NavController,
+    cityName:String
 ) {
     val uiState by viewModel.forcastUiState.collectAsState()
-    val cityName: String = LocalWeatherData.current.cityName ?: stringResource(id = R.string.cairo)
     LaunchedEffect(Unit) {
         viewModel.doAction(ForcastScreenActions.GetForcastDataAction(cityName = cityName))
     }
     DaysForcastScreenContent(
-        uiState, viewModel, navController, cityName = cityName ?: stringResource(
-            R.string.cairo
-        )
+        uiState, viewModel, navController, cityName = cityName
     )
 }
 

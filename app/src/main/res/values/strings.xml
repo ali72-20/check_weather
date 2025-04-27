@@ -22,5 +22,7 @@
     <string name="arrowback">ArrowBack</string>
     <string name="forecast_screen">Forecast screen</string>
     <string name="today">ToDay %1$s</string>
-    <string name="cairo">Cairo</string>"
+    <string name="cairo">Cairo</string>
+    <string name="_7_days_forecast">7-days forecast</string>
+    <string name="view_all">view all</string>"
 </resources>
