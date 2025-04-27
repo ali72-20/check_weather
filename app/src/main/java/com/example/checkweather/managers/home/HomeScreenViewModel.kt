@@ -1,6 +1,10 @@
 package com.example.checkweather.managers.home
 
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 import com.example.domain.core.api_result.Failure
@@ -19,6 +23,11 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
     ViewModel() {
     lateinit var weatherDataEntity: WeatherDataEntity
+
+
+    var weatherState = mutableStateOf<WeatherUiState>(WeatherUiState.LoadingState)
+
+
     suspend fun getWeatherData(cityName: String?): WeatherUiState {
         return when (val response = weatherRepository.getWeatherData(
             WeatherRequestEntity(

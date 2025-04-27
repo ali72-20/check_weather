@@ -15,4 +15,8 @@ class SearchRepositoryImpl @Inject constructor(private  val localDataSource: Loc
             city.toDomain()
         }
     }
+
+    override suspend fun clearHistory() {
+        localDataSource.clearHistory()
+    }
 }

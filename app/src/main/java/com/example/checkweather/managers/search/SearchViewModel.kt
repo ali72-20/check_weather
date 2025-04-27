@@ -1,11 +1,7 @@
 package com.example.checkweather.managers.search
-import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.domain.entities.CityHistoryEntity
 import com.example.domain.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,5 +35,11 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
     suspend fun getHistory():SearchFragmentStates{
         cityHistory = mutableStateOf(searchRepository.getSearchHistory())
         return SearchFragmentStates.SuccessState<List<CityHistoryEntity>>(data = cityHistory.value)
+    }
+
+    suspend fun clearHistory(){
+        searchRepository.clearHistory()
+        cityHistory = mutableStateOf(emptyList())
+        searchFragmentStates.value = SearchFragmentStates.SuccessState<List<CityHistoryEntity>>(data = cityHistory.value)
     }
 }

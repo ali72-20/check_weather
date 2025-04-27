@@ -26,6 +26,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +47,7 @@ import com.example.checkweather.core.Dimens
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
 import com.example.domain.entities.DataItemEntity
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -53,36 +55,38 @@ fun HomeScreenContent(
     viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>(),
     navController: NavController
 ) {
-    var weatherState by remember {
-        mutableStateOf<WeatherUiState>(WeatherUiState.LoadingState)
-    }
     val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
     val cityName = savedStateHandle?.get<String>(ConstKey.cityName)
     LaunchedEffect(Unit) {
         val result = viewModel.getWeatherData(cityName = cityName)
-        weatherState = result
+        viewModel.weatherState.value = result
     }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
     ) { paddingValues ->
-        when (weatherState) {
+        when (viewModel.weatherState.value) {
             is WeatherUiState.LoadingState -> {
                 HomeLoadingView()
             }
 
             is WeatherUiState.SuccessState -> {
-                val weatherData = (weatherState as WeatherUiState.SuccessState).weatherData
+                val weatherData =
+                    (viewModel.weatherState.value as WeatherUiState.SuccessState).weatherData
                 CompositionLocalProvider(LocalWeatherData provides weatherData) {
                     HomeScreenBody(
-                        modifier = Modifier.padding(paddingValues,),
+                        modifier = Modifier.padding(paddingValues),
                         navController = navController
                     )
                 }
             }
 
             is WeatherUiState.ErrorState -> {
-                ErrorViewHome(viewModel = viewModel, errorMessage = (weatherState as WeatherUiState.ErrorState).errorMessage)
+                ErrorViewHome(
+                    viewModel = viewModel,
+                    errorMessage = (viewModel.weatherState as WeatherUiState.ErrorState).errorMessage,
+                    cityName = cityName ?: stringResource(R.string.cairo)
+                )
             }
         }
     }
@@ -104,24 +108,26 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
         ) {
             LocationRowView(navController = navController)
             CurrentWeatherView(modifier)
-           Row(modifier = Modifier
-               .fillMaxWidth()
-               .padding(Dimens.PaddingXXSmall), horizontalArrangement = Arrangement.SpaceBetween){
-               Text(
-                   stringResource(R.string._7_days_forecast),
-                   color = MaterialTheme.colorScheme.primary
-               )
-               Text(
-                   stringResource(R.string.view_all),
-                   color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.clickable{
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Dimens.PaddingXXSmall),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    stringResource(R.string._7_days_forecast),
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    stringResource(R.string.view_all),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.clickable {
                         navController.navigate(AppRoutesManger.DaysForcastScreen.passCity(cityName = cityNme))
                     }
-               )
-           }
+                )
+            }
             LazyRow(modifier = Modifier.wrapContentSize()) {
-                items(3){
-                    index->
+                items(3) { index ->
                     ForecastItem(LocalWeatherData.current.data[index])
                 }
             }
@@ -130,14 +136,15 @@ fun HomeScreenBody(modifier: Modifier = Modifier, navController: NavController) 
 }
 
 @Composable
-fun ForecastItem(dataItemEntity: DataItemEntity){
+fun ForecastItem(dataItemEntity: DataItemEntity) {
     Box(
         modifier = Modifier
             .padding(Dimens.PaddingXXSmall)
             .background(
                 color = Color.White.copy(alpha = 0.3f),
                 shape = RoundedCornerShape(12.dp)
-            )){
+            )
+    ) {
         Column(
             modifier = Modifier.padding(Dimens.PaddingMedium),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -154,13 +161,17 @@ fun ForecastItem(dataItemEntity: DataItemEntity){
         }
     }
 }
+
 @Composable
-fun ErrorViewHome(errorMessage: String, viewModel: HomeScreenViewModel) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colorScheme.primary),
+fun ErrorViewHome(errorMessage: String, viewModel: HomeScreenViewModel, cityName: String) {
+    val coroutineScope = rememberCoroutineScope()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.tertiary),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
         Image(
             painterResource(R.drawable.warning),
             contentDescription = stringResource(R.string.waring)
@@ -177,7 +188,10 @@ fun ErrorViewHome(errorMessage: String, viewModel: HomeScreenViewModel) {
             painterResource(R.drawable.reload),
             contentDescription = stringResource(R.string.reload),
             modifier = Modifier.clickable {
-
+                coroutineScope.launch {
+                    val result = viewModel.getWeatherData(cityName = cityName)
+                    viewModel.weatherState.value = result
+                }
             },
         )
     }

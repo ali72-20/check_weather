@@ -12,4 +12,8 @@ class LocalDataSourceImpl @Inject constructor(private val cityHistoryDao: CityHi
         return cityHistoryDao.getAllCities()
     }
 
+    override suspend fun clearHistory() {
+        cityHistoryDao.deleteAll()
+    }
+
 }

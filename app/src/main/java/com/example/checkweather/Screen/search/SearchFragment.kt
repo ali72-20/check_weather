@@ -30,10 +30,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.checkweather.Screen.Home.HomeLoadingView
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -62,6 +64,7 @@ fun SearchFragment(
 
 @Composable
 fun SearchFragmentContent(viewModel: SearchViewModel, navController: NavController) {
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,16 +83,12 @@ fun SearchFragmentContent(viewModel: SearchViewModel, navController: NavControll
             Icon(
                 painterResource(R.drawable.arrow_back_ios_24dp_5f6368_fill0_wght400_grad0_opsz24_1),
                 contentDescription = stringResource(R.string.arrowback),
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable {
                         navController.popBackStack()
                     }
                     .padding(Dimens.PaddingSmall)
-            )
-            Text(
-                text = stringResource(R.string.back),
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.bodyMedium
             )
         }
 
@@ -136,19 +135,21 @@ fun SearchFragmentContent(viewModel: SearchViewModel, navController: NavControll
             Arrangement.SpaceBetween
         ) {
             Text(
-                "RecentSearch", style = TextStyle(
+                stringResource(R.string.recent_search), style = TextStyle(
                     color = MaterialTheme.colorScheme.primary,
                     fontSize =16.sp
                 )
             )
 
             Text(
-                "Clear", style = TextStyle(
+                stringResource(R.string.clear), style = TextStyle(
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 ),
                 modifier = Modifier.clickable {
-
+                    coroutineScope.launch {
+                        viewModel.clearHistory()
+                    }
                 })
         }
         if (viewModel.cityHistory.value.isEmpty()) {
