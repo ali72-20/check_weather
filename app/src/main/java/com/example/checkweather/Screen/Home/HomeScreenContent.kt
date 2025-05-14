@@ -1,5 +1,8 @@
 package com.example.checkweather.Screen.Home
 
+import android.content.Context
+import android.view.Gravity
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -28,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -41,21 +46,35 @@ import com.example.checkweather.core.ConstKey
 import com.example.checkweather.core.Dimens
 import com.example.checkweather.managers.home.HomeScreenViewModel
 import com.example.checkweather.managers.home.WeatherUiState
+import com.example.core.network.NetWorkStatues
 import com.example.domain.entities.DataItemEntity
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun HomeScreenContent(
     viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>(),
-    navController: NavController
+    navController: NavController,
 ) {
     val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
     val cityName = savedStateHandle?.get<String>(ConstKey.cityName)
     val state = viewModel.weatherState.value
-    LaunchedEffect(Unit) {
-        val result = viewModel.getWeatherData(cityName = cityName)
-        viewModel.weatherState.value = result
+    val netWorkStatues = viewModel.networkState.collectAsState().value
+    val message = when(netWorkStatues){
+        NetWorkStatues.Available -> "You are online"
+        NetWorkStatues.Unavailable -> "You are offline"
+    }
+    Toast
+        .makeText(LocalContext.current, message, Toast.LENGTH_SHORT)
+        .apply { setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 100) }
+        .show()
+
+    if(netWorkStatues == NetWorkStatues.Available){
+        LaunchedEffect(key1 = cityName){
+            val result = viewModel.getWeatherData(cityName = cityName ?:"Cairo")
+            viewModel.weatherState.value = result
+        }
     }
     Scaffold(
         modifier = Modifier

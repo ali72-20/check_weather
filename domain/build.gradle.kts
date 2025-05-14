@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
     testImplementation ("junit:junit:4.13.2")
     testImplementation ("org.jetbrains.kotlin:kotlin-test:1.8.0")
     testImplementation ("androidx.test.ext:junit:1.1.5")

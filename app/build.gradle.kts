@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":data"))
     implementation(libs.play.services.location)
     implementation(libs.androidx.benchmark.macro)
+    implementation(project(":core"))
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation (libs.androidx.hilt.navigation.compose)

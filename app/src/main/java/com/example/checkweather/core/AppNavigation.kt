@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.checkweather.Screen.Home.HomeScreenContent
 import com.example.checkweather.Screen.forcast.DaysForcastFragment
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Composable
 fun AppNavigation() {
