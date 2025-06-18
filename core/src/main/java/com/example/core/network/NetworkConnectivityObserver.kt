@@ -2,6 +2,7 @@ package com.example.core.network
 
 import android.net.ConnectivityManager
 import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -18,9 +19,6 @@ class NetworkConnectivityObserver constructor(
                 trySend(NetWorkStatues.Available)
             }
 
-            override fun onLosing(network: Network, maxMsToLive: Int) {
-                trySend(NetWorkStatues.Unavailable)
-            }
 
             override fun onLost(network: Network) {
                  trySend(NetWorkStatues.Unavailable)
@@ -28,6 +26,19 @@ class NetworkConnectivityObserver constructor(
 
             override fun onUnavailable() {
                 trySend(NetWorkStatues.Unavailable)
+            }
+
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
+                super.onCapabilitiesChanged(network, networkCapabilities)
+                val connected = networkCapabilities.hasCapability(
+                    NetworkCapabilities.NET_CAPABILITY_VALIDATED
+                )
+                trySend(
+                    if(connected) NetWorkStatues.Available else NetWorkStatues.Unavailable
+                )
             }
         }
         connectivityManager.registerNetworkCallback(networkRequest,networkCallback)
